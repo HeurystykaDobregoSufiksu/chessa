@@ -41,6 +41,7 @@ public class botHandMovement : MonoBehaviour
 
     public void makePlay(chessTile startTile, chessTile endTile) {
         StartCoroutine(handMovement(startTile, endTile));
+        
     }
     IEnumerator looking(Transform target) {
         float timeElapsed = 0;
@@ -64,6 +65,7 @@ public class botHandMovement : MonoBehaviour
     }
 
     IEnumerator handMovement(chessTile startTile, chessTile endTile) {
+    handTargetStartPosition = handTarget.position;
     startTile.currentFigure.transform.GetComponent<Collider>().enabled = false;
     Transform prevParent = startTile.currentFigure.transform.parent;
     this.Invoke(() => lookAtSetParent(startTile.currentFigure.transform),AnimSpeed);
@@ -75,7 +77,7 @@ public class botHandMovement : MonoBehaviour
     }
     Vector3 nextHandPosition = handTargetStartPosition;
         timeElapsed = 0;
-        nextHandPosition = new Vector3(startTile.transform.position.x, startTile.transform.position.y + 0.1f, startTile.transform.position.z);
+        nextHandPosition = new Vector3(startTile.transform.position.x, startTile.transform.position.y + 0.1f, startTile.transform.position.z) ;
         while (timeElapsed < AnimSpeed) {
 
             handTarget.position = Vector3.Lerp(handTargetStartPosition, nextHandPosition, timeElapsed / AnimSpeed);
@@ -83,6 +85,7 @@ public class botHandMovement : MonoBehaviour
             yield return null;
         }
         handTarget.position = nextHandPosition;
+
         yield return null;
         timeElapsed = 0;
     while (timeElapsed < AnimSpeed) {
