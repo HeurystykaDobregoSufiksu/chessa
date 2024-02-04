@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1879253871933820693}
   - component: {fileID: 4947283041855882884}
   - component: {fileID: 4617356354304808467}
-  - component: {fileID: 8478143008327668850}
+  - component: {fileID: 5322870497698455513}
   - component: {fileID: -8451726131968425264}
   - component: {fileID: -3430768625832590724}
   - component: {fileID: -2173839410476523596}
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8478143008327668850
+--- !u!114 &5322870497698455513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,16 +96,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7725666818513692169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a4e0ba5e42b8a45b6a8caf0de6352e, type: 3}
+  m_Script: {fileID: 11500000, guid: a9858ac165bbd994bb9cbb80040fc186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 0
   currentTile: {fileID: 0}
-  moves: []
+  moves:
+  - {x: -1, y: -1}
+  - {x: -1, y: 0}
+  - {x: -1, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  - {x: 1, y: -1}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
   availableMoves: []
-  chessHover: {fileID: 0}
-  chessHoverHitPoint: {fileID: 0}
-  layerMask: 0
+  figure: 0
+  isPinned: 0
+  isChecked: 0
 --- !u!65 &-8451726131968425264
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,7 +218,7 @@ MonoBehaviour:
         m_MethodName: onPieceSelect
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8478143008327668850}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: chessFigure, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -225,7 +233,7 @@ MonoBehaviour:
         m_MethodName: onPieceDrop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8478143008327668850}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: chessFigure, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

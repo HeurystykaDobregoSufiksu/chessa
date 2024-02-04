@@ -10,7 +10,7 @@ using System.Data.Common;
 
 public class DBService
 {
-    public List<PuzzleModel> GetPuzzles(List<string>? themes, int minElo, int maxElo=int.MaxValue, int howMany = 100)
+    public List<PuzzleModel> GetPuzzles(List<string>? themes, int minElo=1, int maxElo=int.MaxValue, int howMany = 100)
     {
      
         List<PuzzleModel> puzzles = new List<PuzzleModel>();

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4730508953851783253}
   - component: {fileID: 7078504397711225151}
   - component: {fileID: 8569846224115010164}
-  - component: {fileID: 6750353052761249557}
+  - component: {fileID: 7944086115798250084}
   - component: {fileID: -7454009737103547597}
   - component: {fileID: -3964087164299094606}
   - component: {fileID: -4788401242840067856}
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6750353052761249557
+--- !u!114 &7944086115798250084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,16 +96,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6635768877908488797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5a4e0ba5e42b8a45b6a8caf0de6352e, type: 3}
+  m_Script: {fileID: 11500000, guid: a99a194ebd2d0c54aa1b27e818681211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isWhite: 0
   currentTile: {fileID: 0}
-  moves: []
+  moves:
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: -1}
   availableMoves: []
-  chessHover: {fileID: 0}
-  chessHoverHitPoint: {fileID: 0}
-  layerMask: 0
+  figure: 5
+  isPinned: 0
 --- !u!65 &-7454009737103547597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,7 +213,7 @@ MonoBehaviour:
         m_MethodName: onPieceSelect
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6750353052761249557}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: chessFigure, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -225,7 +228,7 @@ MonoBehaviour:
         m_MethodName: onPieceDrop
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6750353052761249557}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: chessFigure, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

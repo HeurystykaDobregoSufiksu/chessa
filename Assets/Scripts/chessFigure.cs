@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Figures { K,N,B,Q,P,R}
 public abstract class chessFigure : MonoBehaviour
 {
+    public bool hasMoved = false;
     public bool isWhite;
     public chessTile currentTile;
     public List<Vector2Int> moves;
     public List<Vector2Int> availableMoves;
+    public List<Vector2Int> forcedMoves;
     private int layerMask;
-
+    public Figures figure;
+    public bool isPinned = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +28,7 @@ public abstract class chessFigure : MonoBehaviour
     {
         
     }
-    public chessTile checkPosition() {
+    public chessTile CheckPosition() {
         RaycastHit hit;
         Ray ray = new Ray(transform.position, Vector3.down);
         if (Physics.Raycast(ray, out hit, 0.2f, layerMask)) {    
@@ -34,7 +38,7 @@ public abstract class chessFigure : MonoBehaviour
         }
         return null;
     }
-    public void setWhite(bool white) {
+    public void SetWhite(bool white) {
         isWhite = white;
         if (isWhite) {
             transform.GetComponent<Renderer>().material = currentTile.boardManager.whiteMat;
@@ -43,13 +47,26 @@ public abstract class chessFigure : MonoBehaviour
             transform.GetComponent<Renderer>().material = currentTile.boardManager.blackMat;
         }
     }
-    public abstract List<Vector2Int> possibleMoves();
+    public abstract List<Vector2Int> PossibleMoves();
+    public List<Vector2Int> AddMovesFromDirection(Vector2Int move)
+    {
+        var tempPos = currentTile.position + move;
+        List<Vector2Int> mvs = new List<Vector2Int>();
+        while (InBounds(tempPos))
+        {
 
-    public bool inBounds(Vector2Int temp) {
+            if (currentTile.boardManager.board[tempPos.x, tempPos.y].currentFigure && currentTile.boardManager.board[tempPos.x, tempPos.y].currentFigure.isWhite == isWhite) break;
+            if (currentTile.boardManager.board[tempPos.x, tempPos.y].currentFigure && currentTile.boardManager.board[tempPos.x, tempPos.y].currentFigure.isWhite != isWhite) { mvs.Add(tempPos); break; }
+            mvs.Add(tempPos);
+            tempPos = tempPos + move;
+        }
+        return mvs;
+    }
+    public bool InBounds(Vector2Int temp) {
         return !(temp.x < 0 || temp.y < 0 || temp.y >= 8 || temp.x >= 8) ;
        
     }
-    public  bool canMove() {
+    public bool CanMove() {
         //TODO pinned 
         return true;
     }

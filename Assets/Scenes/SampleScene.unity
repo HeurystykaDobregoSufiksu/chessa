@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5883784, g: 0.49076444, b: 0.41302732, a: 1}
+  m_IndirectSpecularColor: {r: 0.5890471, g: 0.49143687, b: 0.4136148, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4545,6 +4545,17 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -569867274438967056, guid: af3a609f3b06600409a356f4e8ba91ba, type: 3}
   m_PrefabInstance: {fileID: 941582945}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &867802738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2104066827035221623, guid: 42336659c7605b64b859613defc552a9, type: 3}
+  m_PrefabInstance: {fileID: 3281510273007530330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3784ac39db282d54f9dbb96f3311281e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &901297884
 GameObject:
   m_ObjectHideFlags: 0
@@ -7309,6 +7320,17 @@ MonoBehaviour:
       m_Calls: []
   m_MaterialPropertyBlockHelper: {fileID: 1430374034}
   m_ColorPropertyName: _EdgeHighlightColor
+--- !u!114 &1482534422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3876376270987544706, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
+  m_PrefabInstance: {fileID: 3701645262903758241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1826d6abd37b41640b7c7f29838c20fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1503517667 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1073005992685214023, guid: 0d5ab44df11bc014d88930555f5afcdd, type: 3}
@@ -7897,6 +7919,17 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_Variable: {fileID: 0}
+--- !u!114 &1658979384 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7944086115798250084, guid: 5f049741893893846840ad45f80934ba, type: 3}
+  m_PrefabInstance: {fileID: 8914927024720607660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99a194ebd2d0c54aa1b27e818681211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1671653060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8472,6 +8505,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1879253871933820693, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
   m_PrefabInstance: {fileID: 5600971845712751141}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1795556009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5322870497698455513, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
+  m_PrefabInstance: {fileID: 5600971845712751141}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9858ac165bbd994bb9cbb80040fc186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1815318735
 GameObject:
   m_ObjectHideFlags: 0
@@ -9676,6 +9720,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7144340166654221812, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
   m_PrefabInstance: {fileID: 9189884925592571338}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1843557974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 711788878596862570, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
+  m_PrefabInstance: {fileID: 9189884925592571338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d8efafbaae2c3458d887580f131c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1858335801 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2607312474088619353, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
@@ -10175,8 +10230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bot: {fileID: 676863236}
-  gameCSV: '00sO1,1k1r4/pp3pp1/2p1p3/4b3/P3n1P1/8/KPP2PN1/3rBR1R b - - 2 31,b8c7
-    e1a5 b7b6 f1d1,998,85,94,293,advantage discoveredAttack master middlegame short,https://lichess.org/vsfFkG0s/black#62, '
   whiteTurn: 0
   playerWhite: 0
   correctMove:
@@ -11745,6 +11798,14 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724737402}
+    - target: {fileID: -8582681321184371305, guid: 42336659c7605b64b859613defc552a9, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 867802738}
+    - target: {fileID: -8582681321184371305, guid: 42336659c7605b64b859613defc552a9, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 867802738}
     - target: {fileID: 794861305158002814, guid: 42336659c7605b64b859613defc552a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -11785,14 +11846,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1438948972448645898, guid: 42336659c7605b64b859613defc552a9, type: 3}
-      propertyPath: chessHover
-      value: 
-      objectReference: {fileID: 301332623}
-    - target: {fileID: 1438948972448645898, guid: 42336659c7605b64b859613defc552a9, type: 3}
-      propertyPath: chessHoverHitPoint
-      value: 
-      objectReference: {fileID: 1055540422}
     - target: {fileID: 2952442724748604278, guid: 42336659c7605b64b859613defc552a9, type: 3}
       propertyPath: m_Name
       value: bishop
@@ -11884,14 +11937,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4923956633050456673, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
-      propertyPath: chessHover
-      value: 
-      objectReference: {fileID: 301332623}
-    - target: {fileID: 4923956633050456673, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
-      propertyPath: chessHoverHitPoint
-      value: 
-      objectReference: {fileID: 1055540422}
     - target: {fileID: 7218366407061319665, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -11900,6 +11945,14 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724737402}
+    - target: {fileID: 7218366407061319665, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1482534422}
+    - target: {fileID: 7218366407061319665, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1482534422}
     - target: {fileID: 8190858317863330898, guid: 68c94cd5a0c64b04e8a074e73135cea6, type: 3}
       propertyPath: m_Name
       value: queen
@@ -13073,6 +13126,14 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724737402}
+    - target: {fileID: -2173839410476523596, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1795556009}
+    - target: {fileID: -2173839410476523596, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1795556009}
     - target: {fileID: 1879253871933820693, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -13117,14 +13178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: king
       objectReference: {fileID: 0}
-    - target: {fileID: 8478143008327668850, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
-      propertyPath: chessHover
-      value: 
-      objectReference: {fileID: 301332623}
-    - target: {fileID: 8478143008327668850, guid: dbe67fa34696af145b5283331aabf0b6, type: 3}
-      propertyPath: chessHoverHitPoint
-      value: 
-      objectReference: {fileID: 1055540422}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14620,6 +14673,14 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724737402}
+    - target: {fileID: -4788401242840067856, guid: 5f049741893893846840ad45f80934ba, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1658979384}
+    - target: {fileID: -4788401242840067856, guid: 5f049741893893846840ad45f80934ba, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1658979384}
     - target: {fileID: 4730508953851783253, guid: 5f049741893893846840ad45f80934ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -14664,14 +14725,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: rook
       objectReference: {fileID: 0}
-    - target: {fileID: 6750353052761249557, guid: 5f049741893893846840ad45f80934ba, type: 3}
-      propertyPath: chessHover
-      value: 
-      objectReference: {fileID: 301332623}
-    - target: {fileID: 6750353052761249557, guid: 5f049741893893846840ad45f80934ba, type: 3}
-      propertyPath: chessHoverHitPoint
-      value: 
-      objectReference: {fileID: 1055540422}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15825,14 +15878,14 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1724737402}
-    - target: {fileID: 8308868158740831230, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
-      propertyPath: chessHover
+    - target: {fileID: 7329151495314019718, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 301332623}
-    - target: {fileID: 8308868158740831230, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
-      propertyPath: chessHoverHitPoint
+      objectReference: {fileID: 1843557974}
+    - target: {fileID: 7329151495314019718, guid: 9b1cd4ecba530ba4a8f51f7d54d7fb4c, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1055540422}
+      objectReference: {fileID: 1843557974}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
