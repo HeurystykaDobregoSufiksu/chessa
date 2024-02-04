@@ -35,7 +35,8 @@ public class DeepLinkManager : MonoBehaviour
     private void Awake()
     {
         print("Browser");
-        LaunchBrowser(@"https://lichess.org/oauth?response_type=code&client_id=testpuzzleapps&redirect_uri=app.unitydl://das&code_challenge_method=S256&code_challenge=ThsW3pdQpqmHkzFvxcsUuc0Tq-ztNvzGJsdrbsnxPbw");
+        Application.OpenURL("https://lichess.org/oauth?response_type=code&client_id=testpuzzleapps&redirect_uri=https://filmslikethis.info/api/getRecommendations?id=tt7149730&code_challenge_method=S256&code_challenge=ThsW3pdQpqmHkzFvxcsUuc0Tq-ztNvzGJsdrbsnxPbw");
+        //LaunchBrowser(@"https://lichess.org/oauth?response_type=code&client_id=testpuzzleapps&redirect_uri=app.unitydl://das&code_challenge_method=S256&code_challenge=ThsW3pdQpqmHkzFvxcsUuc0Tq-ztNvzGJsdrbsnxPbw");
         print("WORKS");
         if (instance == null)
         {
