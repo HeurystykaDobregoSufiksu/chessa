@@ -7,7 +7,8 @@ public class botHandMovement : MonoBehaviour
 {
     public Transform handTarget,holdParent,lookAtTarget;
     private Vector3 handTargetStartPosition;
-    private ChainIKConstraint chainIK;
+    public ChainIKConstraint chainIK;
+
     public MultiAimConstraint lookConstraint;
     public float AnimSpeed;
     public gameManager gm;
@@ -16,7 +17,7 @@ public class botHandMovement : MonoBehaviour
     void Start()
     {
         handTargetStartPosition = handTarget.position;
-        chainIK = handTarget.parent.GetComponent<ChainIKConstraint>();
+ /*       chainIK = handTarget.parent.GetComponent<ChainIKConstraint>();*/
     }
 
     // Update is called once per frame
@@ -66,24 +67,24 @@ public class botHandMovement : MonoBehaviour
     startTile.currentFigure.transform.GetComponent<Collider>().enabled = false;
     Transform prevParent = startTile.currentFigure.transform.parent;
     this.Invoke(() => lookAtSetParent(startTile.currentFigure.transform),AnimSpeed);
-        float timeElapsed = 0;
+    float timeElapsed = 0;
     while (timeElapsed < AnimSpeed) {
         chainIK.weight = Mathf.Lerp(0, 1, timeElapsed / AnimSpeed);
         timeElapsed += Time.deltaTime;
         yield return null;
     }
     Vector3 nextHandPosition = handTargetStartPosition;
-/*    timeElapsed = 0;
-    nextHandPosition = new Vector3(startTile.transform.position.x, startTile.transform.position.y + 0.1f, startTile.transform.position.z);
-    while (timeElapsed < AnimSpeed) {
+        timeElapsed = 0;
+        nextHandPosition = new Vector3(startTile.transform.position.x, startTile.transform.position.y + 0.1f, startTile.transform.position.z);
+        while (timeElapsed < AnimSpeed) {
 
-        handTarget.position = Vector3.Lerp(handTargetStartPosition, nextHandPosition, timeElapsed / AnimSpeed);
-        timeElapsed += Time.deltaTime;
+            handTarget.position = Vector3.Lerp(handTargetStartPosition, nextHandPosition, timeElapsed / AnimSpeed);
+            timeElapsed += Time.deltaTime * 2;
+            yield return null;
+        }
+        handTarget.position = nextHandPosition;
         yield return null;
-    }
-    handTarget.position = nextHandPosition;
-    yield return null;*/
-    timeElapsed = 0;
+        timeElapsed = 0;
     while (timeElapsed < AnimSpeed) {
         handTarget.position = Vector3.Lerp(nextHandPosition, startTile.transform.position + new Vector3(0,0.1f,0) - (holdParent.position - handTarget.position), timeElapsed / AnimSpeed);
         timeElapsed += Time.deltaTime;
