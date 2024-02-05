@@ -271,6 +271,7 @@ public class boardManager : MonoBehaviour
         // Iterate until we reach the attacking piece
         while (currentX != pieceX || currentY != pieceY)
         {
+            if (!InBounds(new Vector2Int(currentX, currentY))) break;
             lista.Add(new Vector2Int(currentX, currentY));
             currentX += xDirection;
             currentY += yDirection;
@@ -291,9 +292,9 @@ public class boardManager : MonoBehaviour
                 if (tileFigure && tileFigure.isWhite != gm.playerWhite)
                 {
                     var pm = tileFigure.PossibleMoves();
-                    if (pm.Contains(KP.position))
+                    if (pm.Contains(KP.position) )
                     {
-                        tilesToBlockCheck = GetSquaresBetween(KP.position.x, KP.position.y, board[x, y].position.x, board[x, y].position.y);
+                        if(tileFigure.figure != Figures.N) tilesToBlockCheck = GetSquaresBetween(KP.position.x, KP.position.y, board[x, y].position.x, board[x, y].position.y);
 
                         checks.Add(tileFigure.currentTile.position);
                     }

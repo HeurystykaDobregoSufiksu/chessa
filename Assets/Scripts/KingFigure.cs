@@ -21,7 +21,7 @@ public class KingFigure : chessFigure
         if (!hasMoved) 
         {
             moves.Add(new Vector2Int(0, 0));
-            moves.Add(new Vector2Int(9, 9));
+            moves.Add(new Vector2Int(9, 9)); 
         }
         figure = Figures.K;
     }
@@ -34,6 +34,7 @@ public class KingFigure : chessFigure
         {
             for (int y = 0; y < 8; y += 1)
             {
+                if (currentTile.position.x == x && currentTile.position.y == y) continue;
                 chessFigure tileFigure = board[x, y].currentFigure;
                 if (tileFigure && tileFigure.isWhite != gm.playerWhite)
                 {
