@@ -39,7 +39,7 @@ public class PawnFigure : chessFigure
         List<Vector2Int> tempList = new List<Vector2Int>();
         foreach (var move in moves)
         {
-            var temp = currentTile.position + move;
+            Vector2Int temp = currentTile.position + move;
             if (!InBounds(temp)) continue;
             if (move.y==0 && !currentTile.boardManager.board[temp.x, temp.y].currentFigure) tempList.Add(temp);
             else if (currentTile.boardManager.board[temp.x, temp.y].currentFigure && currentTile.boardManager.board[temp.x, temp.y].currentFigure.isWhite != isWhite) tempList.Add(temp);

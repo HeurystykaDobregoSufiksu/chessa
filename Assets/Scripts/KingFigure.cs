@@ -27,14 +27,14 @@ public class KingFigure : chessFigure
     }
     private bool IsTileUnderAttack(Vector2Int tile)
     {
-        var board = currentTile.boardManager.board;
-        var gm = currentTile.boardManager.gm;
-       
+        chessTile[,] board = currentTile.boardManager.board;
+        gameManager gm = currentTile.boardManager.gm;
+
         for (int x = 0; x < 8; x += 1)
         {
             for (int y = 0; y < 8; y += 1)
             {
-                var tileFigure = board[x, y].currentFigure;
+                chessFigure tileFigure = board[x, y].currentFigure;
                 if (tileFigure && tileFigure.isWhite != gm.playerWhite)
                 {
                     if (tileFigure.PossibleMoves().Contains(tile)) return true;
@@ -45,15 +45,15 @@ public class KingFigure : chessFigure
         return false;
     }
     public override List<Vector2Int> PossibleMoves() {
-        var board = currentTile.boardManager.board;
-        var gm= currentTile.boardManager.gm;
+        chessTile[,] board = currentTile.boardManager.board;
+        gameManager gm= currentTile.boardManager.gm;
         List<Vector2Int> tempList = new List<Vector2Int>();
-        var left = new Vector2Int(-1, 0);
-        var right = new Vector2Int(1, 0);
+        Vector2Int left = new Vector2Int(-1, 0);
+        Vector2Int right = new Vector2Int(1, 0);
         foreach (var move in moves) {
 
             
-            var temp = currentTile.position + move;
+            Vector2Int temp = currentTile.position + move;
             if(!InBounds(temp)) continue;
             if (board[temp.x, temp.y].currentFigure && board[temp.x, temp.y].currentFigure.isWhite == isWhite) continue;
             if (IsTileUnderAttack(temp)) continue;

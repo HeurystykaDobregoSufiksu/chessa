@@ -291,8 +291,12 @@ public class boardManager : MonoBehaviour
                 if (tileFigure && tileFigure.isWhite != gm.playerWhite)
                 {
                     var pm = tileFigure.PossibleMoves();
-                    if (pm.Contains(KP.position)) checks.Add(tileFigure.currentTile.position);
-                    tilesToBlockCheck= GetSquaresBetween(KP.position.x, KP.position.y, board[x, y].position.x, board[x, y].position.y);
+                    if (pm.Contains(KP.position))
+                    {
+                        tilesToBlockCheck = GetSquaresBetween(KP.position.x, KP.position.y, board[x, y].position.x, board[x, y].position.y);
+
+                        checks.Add(tileFigure.currentTile.position);
+                    }
                     isCheck = true;
                 }
             }
@@ -345,8 +349,12 @@ public class boardManager : MonoBehaviour
 
             if ( tileFigure && tileFigure.isWhite != gm.playerWhite)
             {
-                if(playerFigure is null) break;
-                var forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
+                List<Vector2Int> forcedMoves = new();
+                if (playerFigure is null) break;
+                if(tileFigure.figure==Figures.B && direction.x!=0 && direction.y != 0) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
+                if (tileFigure.figure == Figures.R && direction.x == 0 || direction.y == 0) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
+                if (tileFigure.figure == Figures.Q && ((direction.x == 0 || direction.y == 0) || (direction.x != 0 && direction.y != 0))) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
+
                 playerFigure.availableMoves.Clear();
                 var p = playerFigure.PossibleMoves();
                 var f = forcedMoves.Where(x => p.Contains(x)).ToList();

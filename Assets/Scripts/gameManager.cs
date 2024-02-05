@@ -75,6 +75,8 @@ public class gameManager : MonoBehaviour
         correctMoveCount += 1;
         whiteTurn = !whiteTurn;
         toggleInteractors(true);
+
+       // makeMove(correctMoves[correctMoveCount]); //UWAGA TYLKO DO TESTOW BOT GRA CALY CZAS
     }
     public bool checkMove(Vector2Int start, Vector2Int stop) {
         if (correctMoveCount >= correctMoves.Count) return false; //WIN CONDITION

@@ -50,7 +50,7 @@ public abstract class chessFigure : MonoBehaviour
     public abstract List<Vector2Int> PossibleMoves();
     public List<Vector2Int> AddMovesFromDirection(Vector2Int move)
     {
-        var tempPos = currentTile.position + move;
+        Vector2Int tempPos = currentTile.position + move;
         List<Vector2Int> mvs = new List<Vector2Int>();
         while (InBounds(tempPos))
         {
