@@ -11,10 +11,19 @@ public class gameManager : MonoBehaviour
    
     public bool whiteTurn;
     public bool playerWhite;
+    [Header("Scenario Section")]
+    public bool isScenario;
+    public string scenFEN, scenMoves;
+
+
+
     private List<string> correctMoves;
     private string FEN;
     int correctMoveCount = 0;
     int wrongMoveCount = 0;
+
+    [Header("Events Section")]
+
     public UnityEvent correctMove;
     public UnityEvent wrongMove;
     public UnityEvent resetMats;
@@ -30,17 +39,14 @@ public class gameManager : MonoBehaviour
         _DBService = new();
         puzzleList = _DBService.GetPuzzles(null);
         bm = GameObject.FindGameObjectWithTag("BoardManager").GetComponent<boardManager>();
-        //nextPuzzle();
-        PuzzleModel pm;
-        pm = new PuzzleModel(); pm.FEN = "8/5k2/2b5/8/8/8/2Q5/1K6 w - - 0 1"; pm.Moves = "c2c3 c6d5 c3b3"; // Pin bishop (NIE DZIALA)
-        pm = new PuzzleModel(); pm.FEN = "8/5k2/2b5/8/8/2Q5/8/1K6 w - - 0 1"; pm.Moves = "c3b3 c6d5 b3b4"; // check (bishop moze wszedzie, król może się cofac po diagonalu checka)
-        pm = new PuzzleModel(); pm.FEN = "r3k2r/2q5/8/8/8/8/P6P/R1Q1K2R w - - 0 1"; pm.Moves = "c1c2 e8g8"; // black castle  (NIE DZIALA)
-        pm = new PuzzleModel(); pm.FEN = "r3k2r/2q5/8/8/8/8/P1Q4P/R3K2R b - - 0 1"; pm.Moves = "c7c8 e0a0"; // white castle  (NIE DZIALA)
-     /*        pm = new PuzzleModel(); pm.FEN = "r3k2r/3q4/8/8/8/8/P6P/R1Q1K2R w - - 0 1"; pm.Moves = "c1c2 e8c8"; // black castle long blocked
-                pm = new PuzzleModel(); pm.FEN = "r3k2r/3q4/8/8/8/8/8/R1Q1K2R w - - 0 1"; pm.Moves = "c1c4 e8g8"; // black castle short blocked*/
-
-
-        startGame(pm);
+        if (isScenario) {
+            PuzzleModel pm;
+            pm = new PuzzleModel(); pm.FEN = scenFEN; pm.Moves = scenMoves; 
+            startGame(pm);
+        }
+        else {
+            nextPuzzle();
+        }
     }
     public void startGame(PuzzleModel puzzle) {
         // print(puzzle.PuzzleId);
