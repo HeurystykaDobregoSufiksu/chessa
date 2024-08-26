@@ -60,6 +60,8 @@ public class gameManager : MonoBehaviour
         whiteTurn = FEN[1] == "w" ? true : false;
         playerWhite = !whiteTurn;
         print(playerWhite + " WOAH");
+        print(puzzle.Moves);
+        print(puzzle.FEN);
         if (!testMode) {
             bm.setChessFigures(FEN[0]);
         }

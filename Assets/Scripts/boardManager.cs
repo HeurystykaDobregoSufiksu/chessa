@@ -141,8 +141,9 @@ public class boardManager : MonoBehaviour
         generateChessTiles();
 
     }
-    public void onPieceSelect(chessFigure figure)
+    public void onPieceSelect(chessFigure figure, bool isMouse = false)
     {
+        if (isMouse && currentFigure) onPieceDrop(currentFigure);
         gm.toggleInteractors(false);
 
         /*        if (currentFigure != null) {
@@ -151,7 +152,7 @@ public class boardManager : MonoBehaviour
                 }*/
         currentFigure = figure;
         currentFigure.currentTile.changeOverlay(0);
-        currentFigure.GetComponent<XRBaseInteractable>().selectingInteractor.enableInteractions = true;
+        if(!isMouse) currentFigure.GetComponent<XRBaseInteractable>().selectingInteractor.enableInteractions = true;
         if(!currentFigure.isPinned) currentFigure.PossibleMoves();
         foreach (var poss in currentFigure.availableMoves)
         {
@@ -161,7 +162,7 @@ public class boardManager : MonoBehaviour
         bot.lookAtSetParent(currentFigure.transform);
         print(currentFigure);
     }
-    public void onPieceDrop(chessFigure figure)
+    public void onPieceDrop(chessFigure figure, chessTile mouseTile = null)
     {
         bot.lookAtSetParent();
 
@@ -171,12 +172,19 @@ public class boardManager : MonoBehaviour
         {
             board[poss.x, poss.y].hideOverlay();
         }
-
+        chessTile newTile;
         gm.toggleInteractors(true);
-        chessTile newTile = currentFigure.CheckPosition();
+        if (mouseTile) {
+            newTile = mouseTile; //Mouse Controls
+        }
+        else {
+            newTile = currentFigure.CheckPosition(); //VR controls
+        }
+        
 
         if (newTile == null || newTile == currentFigure.currentTile)
         {
+            print(newTile);
             figure.currentTile.moveFigureToTile();
             return;
         }
