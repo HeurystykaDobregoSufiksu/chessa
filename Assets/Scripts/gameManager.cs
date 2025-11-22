@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
+using ChessGame;
 
 public class gameManager : MonoBehaviour
 {
     boardManager bm;
     public botHandMovement bot;
-   
+
     public bool whiteTurn;
     public bool playerWhite;
     [Header("Scenario Section")]
     public bool isScenario;
     public string scenFEN, scenMoves;
 
-
+    [Header("Game Mode Section")]
+    public GameMode currentGameMode = GameMode.PuzzlePractice;
+    private WoodpeckerMode woodpeckerMode;
 
     private List<string> correctMoves;
     private string FEN;
@@ -37,15 +40,32 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         _DBService = new();
-        LoadPuzzlesWithDefaultSettings();
         bm = GameObject.FindGameObjectWithTag("BoardManager").GetComponent<boardManager>();
+
+        // Initialize woodpecker mode
+        woodpeckerMode = FindObjectOfType<WoodpeckerMode>();
+        if (woodpeckerMode == null)
+        {
+            GameObject wpGO = new GameObject("WoodpeckerMode");
+            woodpeckerMode = wpGO.AddComponent<WoodpeckerMode>();
+        }
+
         if (isScenario) {
             PuzzleModel pm;
             pm = new PuzzleModel(); pm.FEN = scenFEN; pm.Moves = scenMoves;
             startGame(pm);
         }
         else {
-            nextPuzzle();
+            // Check if there's an active woodpecker session
+            if (currentGameMode == GameMode.Woodpecker)
+            {
+                LoadWoodpeckerSession();
+            }
+            else
+            {
+                LoadPuzzlesWithDefaultSettings();
+                nextPuzzle();
+            }
         }
     }
 
@@ -86,6 +106,41 @@ public class gameManager : MonoBehaviour
 
         Debug.Log($"Loaded {puzzleList.Count} puzzles with filters: Rating {settings.MinRating}-{settings.MaxRating}, Themes: {(themes != null ? string.Join(", ", themes) : "All")}");
     }
+
+    private void LoadWoodpeckerSession()
+    {
+        var session = woodpeckerMode.LoadSession();
+        if (session != null && !session.IsCompleted)
+        {
+            Debug.Log("Resuming existing Woodpecker session");
+            woodpeckerMode.ResumeSession(session);
+            nextPuzzle();
+        }
+        else
+        {
+            Debug.Log("No active Woodpecker session found");
+            // Could show UI to start a new session or fall back to puzzle practice
+            currentGameMode = GameMode.PuzzlePractice;
+            LoadPuzzlesWithDefaultSettings();
+            nextPuzzle();
+        }
+    }
+
+    public void StartWoodpeckerMode(ChessGame.Models.WoodpeckerSettings settings)
+    {
+        currentGameMode = GameMode.Woodpecker;
+        woodpeckerMode.StartNewSession(settings);
+        nextPuzzle();
+    }
+
+    public void SetGameMode(GameMode mode)
+    {
+        currentGameMode = mode;
+        if (mode == GameMode.PuzzlePractice)
+        {
+            LoadPuzzlesWithDefaultSettings();
+        }
+    }
     public void startGame(PuzzleModel puzzle) {
         // print(puzzle.PuzzleId);
         print("xzxzxzxz");
@@ -111,12 +166,35 @@ public class gameManager : MonoBehaviour
         if (!testMode) makeMove(correctMoves[correctMoveCount]);
     }
     public void nextPuzzle() {
-       
-        int id = Random.Range(0, puzzleList.Count);
         bm.resetBoard();
         resetMats.Invoke();
 
-        startGame(puzzleList[id]);
+        PuzzleModel puzzle = null;
+
+        if (currentGameMode == GameMode.Woodpecker)
+        {
+            puzzle = woodpeckerMode.GetCurrentPuzzle();
+            if (puzzle == null)
+            {
+                Debug.Log("Woodpecker cycle/session complete!");
+                // Could show completion UI here
+                return;
+            }
+            Debug.Log($"Woodpecker: Cycle {woodpeckerMode.GetProgress().currentCycle}/{woodpeckerMode.GetProgress().totalCycles}, Puzzle {woodpeckerMode.GetProgress().currentPuzzle}/{woodpeckerMode.GetProgress().totalPuzzles}");
+        }
+        else
+        {
+            // Standard puzzle practice mode
+            if (puzzleList.Count == 0)
+            {
+                Debug.LogError("No puzzles available!");
+                return;
+            }
+            int id = Random.Range(0, puzzleList.Count);
+            puzzle = puzzleList[id];
+        }
+
+        startGame(puzzle);
         bm.hs.setTarget();
         nextUI.gameObject.active = false;
     }
@@ -146,15 +224,40 @@ public class gameManager : MonoBehaviour
             correctMoveCount += 1;
             whiteTurn = !whiteTurn;
 
+            // Record correct move for woodpecker mode
+            if (currentGameMode == GameMode.Woodpecker)
+            {
+                woodpeckerMode.RecordCorrectMove();
+            }
+
             if (correctMoveCount >= correctMoves.Count) {
 
                 if (wrongMoveCount == 0)
                 {
                     //++elo
                 }
-                
+
                 correctMove.Invoke();
-                nextUI.gameObject.active = true;
+
+                // Handle puzzle completion based on game mode
+                if (currentGameMode == GameMode.Woodpecker)
+                {
+                    // Automatically advance to next puzzle in woodpecker mode
+                    PuzzleModel nextWoodpeckerPuzzle = woodpeckerMode.GetNextPuzzle();
+                    if (nextWoodpeckerPuzzle != null)
+                    {
+                        this.Invoke(() => nextPuzzle(), 1.0f);
+                    }
+                    else
+                    {
+                        // Cycle or session complete
+                        nextUI.gameObject.active = true;
+                    }
+                }
+                else
+                {
+                    nextUI.gameObject.active = true;
+                }
             }
             else {
                 makeMove(correctMoves[correctMoveCount]);
@@ -166,8 +269,14 @@ public class gameManager : MonoBehaviour
         {
             //--elo
             wrongMoveCount += 1;
+
+            // Record incorrect move for woodpecker mode
+            if (currentGameMode == GameMode.Woodpecker)
+            {
+                woodpeckerMode.RecordIncorrectMove();
+            }
         }
-    
+
         wrongMove.Invoke();
         this.Invoke(() => resetMats.Invoke(), 0.5f);
         return false;
