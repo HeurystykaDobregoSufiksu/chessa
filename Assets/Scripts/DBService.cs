@@ -8,8 +8,23 @@ using System;
 using System.Linq;
 using System.Data.Common;
 
-public class DBService
+public class DBService : MonoBehaviour
 {
+    public static DBService Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public List<PuzzleModel> GetPuzzles(List<string>? themes, int minElo=1, int maxElo=int.MaxValue, int howMany = 100)
     {
 
