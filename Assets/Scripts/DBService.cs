@@ -70,6 +70,65 @@ public class DBService
         }
         return puzzles;
     }
+
+    public List<PuzzleModel> GetPuzzlesByIds(List<string> puzzleIds)
+    {
+        List<PuzzleModel> puzzles = new List<PuzzleModel>();
+        if (puzzleIds == null || puzzleIds.Count == 0)
+        {
+            return puzzles;
+        }
+
+        IDbConnection dbConnection = Connect();
+        try
+        {
+            IDbCommand dbCommandReadValues = dbConnection.CreateCommand();
+
+            // Build IN clause for puzzle IDs
+            string idsClause = string.Join(",", puzzleIds.Select(id => $"'{id.Replace("'", "''")}'"));
+            dbCommandReadValues.CommandText = $"SELECT * FROM Puzzles WHERE PuzzleId IN ({idsClause})";
+
+            IDataReader dataReader = dbCommandReadValues.ExecuteReader();
+
+            // Create a dictionary to preserve the order of puzzleIds
+            Dictionary<string, PuzzleModel> puzzleDict = new Dictionary<string, PuzzleModel>();
+
+            while (dataReader.Read())
+            {
+                PuzzleModel puzzle = new();
+                puzzle.PuzzleId = dataReader.GetString(0);
+                puzzle.FEN = dataReader.GetString(1);
+                puzzle.Moves = dataReader.GetString(2);
+                puzzle.Rating = dataReader.GetInt32(3);
+                puzzle.RatingDeviation = dataReader.GetInt32(4);
+                puzzle.Popularity = dataReader.GetInt32(5);
+                puzzle.NbPlays = dataReader.GetInt32(6);
+                puzzle.Themes = dataReader.GetString(7);
+                puzzleDict[puzzle.PuzzleId] = puzzle;
+            }
+
+            // Return puzzles in the same order as puzzleIds
+            foreach (string id in puzzleIds)
+            {
+                if (puzzleDict.ContainsKey(id))
+                {
+                    puzzles.Add(puzzleDict[id]);
+                }
+            }
+
+            return puzzles;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error loading puzzles by IDs: " + ex.Message);
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+        return puzzles;
+    }
+
     private IDbConnection Connect() // 3
     {
         IDbConnection dbConnection = null;
