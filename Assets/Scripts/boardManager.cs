@@ -289,9 +289,10 @@ public class boardManager : MonoBehaviour
     private bool IsKingInCheck()
     {
         tilesToBlockCheck = new();
+        isCheck = false;
         chessTile KP = FindKingPosition();
         List<Vector2Int> checks = new List<Vector2Int>();
-        
+
         for (int x = 0; x < 8; x += 1)
         {
             for (int y = 0; y < 8; y += 1)
@@ -305,8 +306,8 @@ public class boardManager : MonoBehaviour
                         if(tileFigure.figure != Figures.N) tilesToBlockCheck = GetSquaresBetween(KP.position.x, KP.position.y, board[x, y].position.x, board[x, y].position.y);
 
                         checks.Add(tileFigure.currentTile.position);
+                        isCheck = true;
                     }
-                    isCheck = true;
                 }
             }
         }
@@ -321,6 +322,20 @@ public class boardManager : MonoBehaviour
 
     private void CheckForPins()
     {
+        // Reset all pin flags for player's pieces
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                var tileFigure = board[x, y].currentFigure;
+                if (tileFigure && tileFigure.isWhite == gm.playerWhite)
+                {
+                    tileFigure.isPinned = false;
+                    tileFigure.forcedMoves = new List<Vector2Int>();
+                }
+            }
+        }
+
         chessTile KP = FindKingPosition();
         var possibleDirections = new List<Vector2Int>() {
            new Vector2Int(0, 1),
@@ -361,14 +376,20 @@ public class boardManager : MonoBehaviour
                 List<Vector2Int> forcedMoves = new();
                 if (playerFigure is null) break;
                 if(tileFigure.figure==Figures.B && direction.x!=0 && direction.y != 0) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
-                if (tileFigure.figure == Figures.R && direction.x == 0 || direction.y == 0) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
+                if (tileFigure.figure == Figures.R && (direction.x == 0 || direction.y == 0)) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
                 if (tileFigure.figure == Figures.Q && ((direction.x == 0 || direction.y == 0) || (direction.x != 0 && direction.y != 0))) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
 
-                playerFigure.availableMoves.Clear();
+                playerFigure.isPinned = true;
+                playerFigure.forcedMoves = forcedMoves;
+
+                // Set availableMoves to only the moves that keep the piece on the pin line
                 var p = playerFigure.PossibleMoves();
                 var f = forcedMoves.Where(x => p.Contains(x)).ToList();
-                playerFigure.availableMoves.AddRange(f);
-                playerFigure.isPinned = true;
+
+                // Also allow capturing the attacking piece
+                f.Add(tileFigure.currentTile.position);
+
+                playerFigure.availableMoves = f.Where(x => p.Contains(x)).ToList();
                 break;
             }
 

@@ -67,7 +67,11 @@ public abstract class chessFigure : MonoBehaviour
        
     }
     public bool CanMove() {
-        //TODO pinned 
+        // Knights cannot move at all when pinned
+        // Other pieces have their moves restricted by CheckForPins in boardManager
+        if (isPinned && figure == Figures.N) {
+            return false;
+        }
         return true;
     }
 }

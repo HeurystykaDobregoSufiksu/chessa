@@ -60,50 +60,93 @@ public class KingFigure : chessFigure
             if (IsTileUnderAttack(temp)) continue;
             if (move.x == 0 && move.y == 0)
             {
+                // Short castle (kingside)
                 if (gm.playerWhite)
                 {
-                    for(int i = 0; i < 3; i += 1)
-                    {
-                        var casteShort= currentTile.position + 2*right;
-                        var pos = currentTile.position + right;
-                        if (!board[pos.x, pos.y].currentFigure && i < 2) break;
+                    var casteShort = currentTile.position + 2 * right;
+                    var pos1 = currentTile.position + right;
+                    var pos2 = currentTile.position + 2 * right;
+                    var rookPos = currentTile.position + 3 * right;
 
-                        if(i==2 && board[pos.x, pos.y].currentFigure && board[pos.x, pos.y].currentFigure.figure == Figures.R && !board[pos.x, pos.y].currentFigure.hasMoved) tempList.Add(casteShort);
+                    if (InBounds(pos1) && InBounds(pos2) && InBounds(rookPos) &&
+                        !board[pos1.x, pos1.y].currentFigure &&
+                        !board[pos2.x, pos2.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure.figure == Figures.R &&
+                        !board[rookPos.x, rookPos.y].currentFigure.hasMoved &&
+                        !IsTileUnderAttack(currentTile.position) &&
+                        !IsTileUnderAttack(pos1) &&
+                        !IsTileUnderAttack(pos2))
+                    {
+                        tempList.Add(casteShort);
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < 3; i += 1)
+                    var casteShort = currentTile.position + 2 * left;
+                    var pos1 = currentTile.position + left;
+                    var pos2 = currentTile.position + 2 * left;
+                    var rookPos = currentTile.position + 3 * left;
+
+                    if (InBounds(pos1) && InBounds(pos2) && InBounds(rookPos) &&
+                        !board[pos1.x, pos1.y].currentFigure &&
+                        !board[pos2.x, pos2.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure.figure == Figures.R &&
+                        !board[rookPos.x, rookPos.y].currentFigure.hasMoved &&
+                        !IsTileUnderAttack(currentTile.position) &&
+                        !IsTileUnderAttack(pos1) &&
+                        !IsTileUnderAttack(pos2))
                     {
-                        var casteShort = currentTile.position + 2 * left;
-                        var pos = currentTile.position + left;
-                        if (!board[pos.x, pos.y].currentFigure && i < 2) break;
-                        if (i == 2 && board[pos.x, pos.y].currentFigure && board[pos.x, pos.y].currentFigure.figure == Figures.R && !board[pos.x, pos.y].currentFigure.hasMoved) tempList.Add(casteShort);
+                        tempList.Add(casteShort);
                     }
                 }
             }
             else if (move.x == 9 && move.y == 9)
             {
-                //castle long
+                // Long castle (queenside)
                 if (gm.playerWhite)
                 {
-                    for (int i = 0; i < 4; i += 1)
-                    {
-                        var casteLong= currentTile.position + 2 * left;
+                    var casteLong = currentTile.position + 2 * left;
+                    var pos1 = currentTile.position + left;
+                    var pos2 = currentTile.position + 2 * left;
+                    var pos3 = currentTile.position + 3 * left;
+                    var rookPos = currentTile.position + 4 * left;
 
-                        var pos = currentTile.position + left;
-                        if (!board[pos.x, pos.y].currentFigure && i < 3) break;
-                        if (i == 3 && board[pos.x, pos.y].currentFigure && board[pos.x, pos.y].currentFigure.figure == Figures.R && !board[pos.x, pos.y].currentFigure.hasMoved) tempList.Add(casteLong);
+                    if (InBounds(pos1) && InBounds(pos2) && InBounds(pos3) && InBounds(rookPos) &&
+                        !board[pos1.x, pos1.y].currentFigure &&
+                        !board[pos2.x, pos2.y].currentFigure &&
+                        !board[pos3.x, pos3.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure.figure == Figures.R &&
+                        !board[rookPos.x, rookPos.y].currentFigure.hasMoved &&
+                        !IsTileUnderAttack(currentTile.position) &&
+                        !IsTileUnderAttack(pos1) &&
+                        !IsTileUnderAttack(pos2))
+                    {
+                        tempList.Add(casteLong);
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < 4; i += 1)
+                    var casteLong = currentTile.position + 2 * right;
+                    var pos1 = currentTile.position + right;
+                    var pos2 = currentTile.position + 2 * right;
+                    var pos3 = currentTile.position + 3 * right;
+                    var rookPos = currentTile.position + 4 * right;
+
+                    if (InBounds(pos1) && InBounds(pos2) && InBounds(pos3) && InBounds(rookPos) &&
+                        !board[pos1.x, pos1.y].currentFigure &&
+                        !board[pos2.x, pos2.y].currentFigure &&
+                        !board[pos3.x, pos3.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure &&
+                        board[rookPos.x, rookPos.y].currentFigure.figure == Figures.R &&
+                        !board[rookPos.x, rookPos.y].currentFigure.hasMoved &&
+                        !IsTileUnderAttack(currentTile.position) &&
+                        !IsTileUnderAttack(pos1) &&
+                        !IsTileUnderAttack(pos2))
                     {
-                        var casteLong = currentTile.position + 2 * right;
-                        var pos = currentTile.position + right;
-                        if (!board[pos.x, pos.y].currentFigure && i < 3) break;
-                        if (i == 3 && board[pos.x, pos.y].currentFigure && board[pos.x, pos.y].currentFigure.figure == Figures.R && !board[pos.x, pos.y].currentFigure.hasMoved) tempList.Add(casteLong);
+                        tempList.Add(casteLong);
                     }
                 }
             }
