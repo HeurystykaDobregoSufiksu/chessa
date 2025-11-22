@@ -21,6 +21,12 @@ public class QueenFigure : chessFigure
     }
 
     public override List<Vector2Int> PossibleMoves() {
+        if (isPinned && forcedMoves != null && forcedMoves.Count > 0)
+        {
+            availableMoves = forcedMoves;
+            return forcedMoves;
+        }
+
         List<Vector2Int> tempList = new List<Vector2Int>();
         moves.ForEach(move => tempList.AddRange(AddMovesFromDirection(move)));
         availableMoves = tempList;

@@ -5,30 +5,9 @@ using UnityEngine;
 
 public class PawnFigure : chessFigure
 {
-   
+
     public PawnFigure()
     {
-        if (isWhite)
-        {
-            moves = new List<Vector2Int>()
-            {
-                new Vector2Int(-1, 0),
-                new Vector2Int(-1, -1),
-                 new Vector2Int(-1, 1),
-            };
-            if (!hasMoved) moves.Add(new Vector2Int(-2, 0));
-        }
-        else
-        {
-            moves = new List<Vector2Int>()
-            {
-                new Vector2Int(1, 0),
-                new Vector2Int(1, -1),
-                 new Vector2Int(1, 1),
-            };
-            if (!hasMoved) moves.Add(new Vector2Int(2, 0));
-        }
-
         figure = Figures.P;
     }
 
@@ -38,6 +17,23 @@ public class PawnFigure : chessFigure
         {
             availableMoves = forcedMoves;
             return forcedMoves;
+        }
+
+        // Initialize moves based on piece color
+        List<Vector2Int> moves = new List<Vector2Int>();
+        if (isWhite)
+        {
+            moves.Add(new Vector2Int(-1, 0));
+            moves.Add(new Vector2Int(-1, -1));
+            moves.Add(new Vector2Int(-1, 1));
+            if (!hasMoved) moves.Add(new Vector2Int(-2, 0));
+        }
+        else
+        {
+            moves.Add(new Vector2Int(1, 0));
+            moves.Add(new Vector2Int(1, -1));
+            moves.Add(new Vector2Int(1, 1));
+            if (!hasMoved) moves.Add(new Vector2Int(2, 0));
         }
 
         List<Vector2Int> tempList = new List<Vector2Int>();

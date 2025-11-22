@@ -153,7 +153,7 @@ public class boardManager : MonoBehaviour
         currentFigure = figure;
         currentFigure.currentTile.changeOverlay(0);
         if(!isMouse) currentFigure.GetComponent<XRBaseInteractable>().selectingInteractor.enableInteractions = true;
-        if(!currentFigure.isPinned) currentFigure.PossibleMoves();
+        currentFigure.PossibleMoves();
         foreach (var poss in currentFigure.availableMoves)
         {
             board[poss.x, poss.y].changeOverlay(3);
@@ -216,7 +216,7 @@ public class boardManager : MonoBehaviour
 
         if (endPos.currentFigure != null)
         {
-            var currHolder = gm.whiteTurn ? whitePieceHolder : blackPieceHolder;
+            var currHolder = endPos.currentFigure.isWhite ? whitePieceHolder : blackPieceHolder;
             currHolder.placePiece(endPos.currentFigure.transform);
         }
 
@@ -242,15 +242,15 @@ public class boardManager : MonoBehaviour
             if (s.x < -1) castleShort = true;
             else if (s.x > 1) castleLong = true;
         }
-        if (gm.playerWhite)
+        if (endPos.currentFigure.isWhite)
         {
-            if(castleShort) movePiece(board[7, 7], board[7, 5],  playerMove = true);
-            if(castleLong) movePiece(board[7, 0], board[7, 3], playerMove = true);
+            if(castleShort) movePiece(board[7, 7], board[7, 5], true);
+            if(castleLong) movePiece(board[7, 0], board[7, 3], true);
         }
         else
         {
-            if (castleShort) movePiece(board[0, 7], board[0, 5], playerMove = true);
-            if (castleLong) movePiece(board[0, 0], board[0, 3], playerMove = true);
+            if (castleShort) movePiece(board[0, 7], board[0, 5], true);
+            if (castleLong) movePiece(board[0, 0], board[0, 3], true);
         }
        
         endPos.moveFigureToTile();
@@ -380,7 +380,6 @@ public class boardManager : MonoBehaviour
                 if (tileFigure.figure == Figures.Q && ((direction.x == 0 || direction.y == 0) || (direction.x != 0 && direction.y != 0))) forcedMoves = GetSquaresBetween(playerFigure.currentTile.position.x, playerFigure.currentTile.position.y, tileFigure.currentTile.position.x, tileFigure.currentTile.position.y);
 
                 playerFigure.isPinned = true;
-                playerFigure.forcedMoves = forcedMoves;
 
                 // Set availableMoves to only the moves that keep the piece on the pin line
                 var p = playerFigure.PossibleMoves();
@@ -389,7 +388,8 @@ public class boardManager : MonoBehaviour
                 // Also allow capturing the attacking piece
                 f.Add(tileFigure.currentTile.position);
 
-                playerFigure.availableMoves = f.Where(x => p.Contains(x)).ToList();
+                playerFigure.forcedMoves = f;
+                playerFigure.availableMoves = f;
                 break;
             }
 
