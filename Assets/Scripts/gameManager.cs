@@ -37,16 +37,54 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         _DBService = new();
-        puzzleList = _DBService.GetPuzzles(null);
+        LoadPuzzlesWithDefaultSettings();
         bm = GameObject.FindGameObjectWithTag("BoardManager").GetComponent<boardManager>();
         if (isScenario) {
             PuzzleModel pm;
-            pm = new PuzzleModel(); pm.FEN = scenFEN; pm.Moves = scenMoves; 
+            pm = new PuzzleModel(); pm.FEN = scenFEN; pm.Moves = scenMoves;
             startGame(pm);
         }
         else {
             nextPuzzle();
         }
+    }
+
+    private void LoadPuzzlesWithDefaultSettings()
+    {
+        // Load default puzzles or from saved settings
+        PuzzleSettingsManager settingsManager = FindObjectOfType<PuzzleSettingsManager>();
+        if (settingsManager != null)
+        {
+            PuzzleSettings settings = settingsManager.GetSettings();
+            ReloadPuzzles(settings);
+        }
+        else
+        {
+            puzzleList = _DBService.GetPuzzles(null);
+        }
+    }
+
+    public void ReloadPuzzles(PuzzleSettings settings)
+    {
+        List<string> themes = null;
+
+        // Combine themes and openings for filtering
+        if (settings.SelectedThemes.Count > 0 || settings.SelectedOpenings.Count > 0)
+        {
+            themes = new List<string>();
+            themes.AddRange(settings.SelectedThemes);
+            themes.AddRange(settings.SelectedOpenings);
+        }
+
+        puzzleList = _DBService.GetPuzzles(themes, settings.MinRating, settings.MaxRating);
+
+        if (puzzleList.Count == 0)
+        {
+            Debug.LogWarning("No puzzles found matching the current filters. Loading all puzzles.");
+            puzzleList = _DBService.GetPuzzles(null);
+        }
+
+        Debug.Log($"Loaded {puzzleList.Count} puzzles with filters: Rating {settings.MinRating}-{settings.MaxRating}, Themes: {(themes != null ? string.Join(", ", themes) : "All")}");
     }
     public void startGame(PuzzleModel puzzle) {
         // print(puzzle.PuzzleId);
