@@ -15,20 +15,13 @@ public class KingFigure : chessFigure
             new Vector2Int(0, 1),   // Top
             new Vector2Int(1, -1),  // Bottom right
             new Vector2Int(1, 0),   // Right
-            new Vector2Int(1, 1),    // Top right
-            
+            new Vector2Int(1, 1)    // Top right
         };
-        if (!hasMoved) 
-        {
-            moves.Add(new Vector2Int(0, 0));
-            moves.Add(new Vector2Int(9, 9)); 
-        }
         figure = Figures.K;
     }
     private bool IsTileUnderAttack(Vector2Int tile)
     {
         chessTile[,] board = currentTile.boardManager.board;
-        gameManager gm = currentTile.boardManager.gm;
 
         for (int x = 0; x < 8; x += 1)
         {
@@ -36,7 +29,7 @@ public class KingFigure : chessFigure
             {
                 if (currentTile.position.x == x && currentTile.position.y == y) continue;
                 chessFigure tileFigure = board[x, y].currentFigure;
-                if (tileFigure && tileFigure.isWhite != gm.playerWhite)
+                if (tileFigure && tileFigure.isWhite != isWhite)
                 {
                     if (tileFigure.PossibleMoves().Contains(tile)) return true;
                 }
@@ -51,9 +44,18 @@ public class KingFigure : chessFigure
         List<Vector2Int> tempList = new List<Vector2Int>();
         Vector2Int left = new Vector2Int(-1, 0);
         Vector2Int right = new Vector2Int(1, 0);
-        foreach (var move in moves) {
 
-            
+        // Add castling moves if king hasn't moved
+        List<Vector2Int> movesToCheck = new List<Vector2Int>(moves);
+        if (!hasMoved)
+        {
+            movesToCheck.Add(new Vector2Int(0, 0));  // Short castle marker
+            movesToCheck.Add(new Vector2Int(9, 9));  // Long castle marker
+        }
+
+        foreach (var move in movesToCheck) {
+
+
             Vector2Int temp = currentTile.position + move;
             if(!InBounds(temp)) continue;
             if (board[temp.x, temp.y].currentFigure && board[temp.x, temp.y].currentFigure.isWhite == isWhite) continue;
