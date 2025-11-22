@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using ChessGame;
 
 /// <summary>
 /// Handles UI controls during gameplay

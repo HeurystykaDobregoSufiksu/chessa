@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using ChessGame;
 
 /// <summary>
 /// Represents a selectable game mode card in the menu

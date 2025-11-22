@@ -296,7 +296,7 @@ namespace ChessGame
         /// <summary>
         /// Saves the current session to PlayerPrefs
         /// </summary>
-        private void SaveSession()
+        public void SaveSession()
         {
             if (currentSession == null) return;
 

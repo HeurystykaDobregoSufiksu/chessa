@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using ChessGame;
 
 /// <summary>
 /// Singleton controller for managing scene transitions

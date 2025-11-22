@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using ChessGame;
 
 /// <summary>
 /// Main menu manager that handles the menu UI and navigation
