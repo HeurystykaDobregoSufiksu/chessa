@@ -50,6 +50,15 @@ public class gameManager : MonoBehaviour
             woodpeckerMode = wpGO.AddComponent<WoodpeckerMode>();
         }
 
+        // Check if game mode was set from the menu
+        if (PlayerPrefs.HasKey("SelectedGameMode"))
+        {
+            int gameModeValue = PlayerPrefs.GetInt("SelectedGameMode");
+            currentGameMode = (GameMode)gameModeValue;
+            PlayerPrefs.DeleteKey("SelectedGameMode"); // Clear after reading
+            Debug.Log($"Game mode loaded from menu: {currentGameMode}");
+        }
+
         if (isScenario) {
             PuzzleModel pm;
             pm = new PuzzleModel(); pm.FEN = scenFEN; pm.Moves = scenMoves;
